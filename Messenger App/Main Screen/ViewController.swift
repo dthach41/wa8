@@ -20,10 +20,9 @@ class ViewController: UIViewController {
     }
     
     
-    
     override func viewDidAppear(_ animinated: Bool) {
         
-        super.viewWillAppear(animinated)
+        super.viewDidAppear(animinated)
         
         //MARK: handling if the Authentication state is changed (sign in, sign out, register)...
         handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
@@ -34,6 +33,7 @@ class ViewController: UIViewController {
                 
             }else{
                 //MARK: the user is signed in...
+                self.view = self.mainScreen
                 
             }
         }

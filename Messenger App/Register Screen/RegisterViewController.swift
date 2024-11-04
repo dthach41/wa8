@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
+
 
 class RegisterViewController: UIViewController {
     
@@ -52,12 +55,50 @@ class RegisterViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
+    
+    //MARK: We set the name of the user after we create the account...
+    func setNameOfTheUserInFirebaseAuth(name: String){
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = name
+        changeRequest?.commitChanges(completion: {(error) in
+            if error == nil{
+                //MARK: the profile update is successful...
+                self.navigationController?.popToRootViewController(animated: true)
+            }else{
+                //MARK: there was an error updating the profile...
+                print("Error occured: \(String(describing: error))")
+            }
+        })
+    }
+    
+    // registers on Firebase
+    func registerNewAccount(){
+        //MARK: create a Firebase user with email and password...
+        if let name = registerScreen.textFieldName.text,
+           let email = registerScreen.textFieldEmail.text,
+           let password = registerScreen.textFieldPassword.text{
+            //Validations....
+            Auth.auth().createUser(withEmail: email, password: password, completion: {result, error in
+                if error == nil{
+                    //MARK: the user creation is successful...
+                    self.setNameOfTheUserInFirebaseAuth(name: name)
+                }else{
+                    //MARK: there is a error creating the user...
+                    print(error!)
+                }
+            })
+        }
+    }
+    
     @objc func onButtonRegisterClicked() {
         if registerScreen.textFieldName.text! == "" || registerScreen.textFieldPassword.text! == "" {
             showEmptyFields()
         }
         else if !isValidEmail(email: registerScreen.textFieldEmail.text!) {
             showInvalidEmail()
+        }
+        else {
+            registerNewAccount()
         }
         
         
