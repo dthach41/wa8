@@ -10,7 +10,7 @@ import UIKit
 class ChatView: UIView {
 
     var tableViewMessages: UITableView!
-    var textfieldMessage: UITextField!
+    var textfieldMessage: UITextField! // textView
     var buttonSend: UIButton!
     
     override init(frame: CGRect) {
@@ -26,13 +26,17 @@ class ChatView: UIView {
     
     func setupTableViewMessages() {
         tableViewMessages = UITableView()
-        tableViewMessages.register(MessagesTableViewCell.self, forCellReuseIdentifier: Configs.tableViewMessagesID)
+        tableViewMessages.register(SenderTableViewCell.self, forCellReuseIdentifier: Configs.tableViewSenderID)
+        tableViewMessages.register(ReceiverTableViewCell.self, forCellReuseIdentifier: Configs.tableViewReceiverID)
         tableViewMessages.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(tableViewMessages)
     }
     
     func setupTextFieldMessage() {
         textfieldMessage = UITextField()
+        textfieldMessage.borderStyle = .roundedRect
+        textfieldMessage.layer.borderWidth = 1
+        textfieldMessage.autocapitalizationType = .none
         textfieldMessage.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(textfieldMessage)
     }
@@ -51,23 +55,15 @@ class ChatView: UIView {
             tableViewMessages.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             tableViewMessages.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10),
 
-//            textfieldMessage.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-//            textfieldMessage.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-//            textfieldMessage.trailingAnchor.constraint(lessThanOrEqualTo: buttonSend.leadingAnchor, constant: -10),
-            
-            buttonSend.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            buttonSend.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-
             textfieldMessage.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            textfieldMessage.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 10),
-
+            textfieldMessage.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            textfieldMessage.trailingAnchor.constraint(lessThanOrEqualTo: buttonSend.leadingAnchor, constant: -5),
             
-//            buttonSend.leadingAnchor.constraint(lessThanOrEqualTo: textfieldMessage.trailingAnchor, constant: 5),
-//            buttonSend.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: -10),
-//            buttonSend.centerYAnchor.constraint(equalTo: textfieldMessage.centerYAnchor),
-//            buttonSend.widthAnchor.constraint(equalToConstant: 20),
-//            buttonSend.heightAnchor.constraint(equalToConstant: 20),
-
+            buttonSend.leadingAnchor.constraint(lessThanOrEqualTo: textfieldMessage.trailingAnchor, constant: 5),
+            buttonSend.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -15),
+            buttonSend.centerYAnchor.constraint(equalTo: textfieldMessage.centerYAnchor),
+            buttonSend.widthAnchor.constraint(equalToConstant: 20),
+            buttonSend.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     

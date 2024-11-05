@@ -38,8 +38,6 @@ class RegisterView: UIView {
         initConstraints()
     }
     
-
-    
     func setupLabelRegister() {
         labelRegister = UILabel()
         labelRegister.text = "Register"

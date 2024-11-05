@@ -14,14 +14,25 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewMessagesID, for: indexPath) as! MessagesTableViewCell
-        
         let message = messages[indexPath.row]
-        cell.labelName.text = message.name
-        cell.labelText.text = message.text
-        cell.labelDateTime.text = DateFormatter.localizedString(from: message.sentAt, dateStyle: .none, timeStyle: .short)
+        var cell: UITableViewCell
+        if message.uid == currentUser.uid {
+            cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewSenderID, for: indexPath) as! SenderTableViewCell
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: Configs.tableViewReceiverID, for: indexPath) as! ReceiverTableViewCell
+        }
         
-        cell.isCurrentUserMessage = message.uid == currentUser.uid
+        cell.selectionStyle = .none
+        
+        if let senderCell = cell as? SenderTableViewCell {
+            senderCell.labelName.text = message.name
+            senderCell.labelText.text = message.text
+            senderCell.labelDateTime.text = DateFormatter.localizedString(from: message.sentAt, dateStyle: .none, timeStyle: .short)
+        } else if let receiverCell = cell as? ReceiverTableViewCell {
+            receiverCell.labelName.text = message.name
+            receiverCell.labelText.text = message.text
+            receiverCell.labelDateTime.text = DateFormatter.localizedString(from: message.sentAt, dateStyle: .none, timeStyle: .short)
+        }
         
         return cell
     }

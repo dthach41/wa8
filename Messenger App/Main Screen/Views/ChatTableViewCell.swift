@@ -40,19 +40,19 @@ class ChatTableViewCell: UITableViewCell {
     func setupLabelReceiverName() {
         labelReceiverName = UILabel()
         labelReceiverName.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(labelReceiverName)
+        wrapperCellView.addSubview(labelReceiverName)
     }
     
     func setupLabelLastMessage() {
         labelLastMessage = UILabel()
         labelLastMessage.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(labelLastMessage)
+        wrapperCellView.addSubview(labelLastMessage)
     }
     
     func setupLabelLastMessageTime() {
         labelLastMessageTime = UILabel()
         labelLastMessageTime.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(labelLastMessageTime)
+        wrapperCellView.addSubview(labelLastMessageTime)
     }
     
     func initConstraints() {

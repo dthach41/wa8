@@ -13,8 +13,7 @@ struct User: Codable {
     var displayName: String
     var email: String
     
-    init(uid: String?, displayName: String, email: String) {
-        self.uid = uid
+    init(displayName: String, email: String) {
         self.displayName = displayName
         self.email = email
     }

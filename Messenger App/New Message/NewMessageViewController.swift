@@ -12,13 +12,42 @@ import FirebaseFirestore
 class NewMessageViewController: UIViewController {
 
     let newMessageScreen = NewMessageView()
-    
     let database = Firestore.firestore()
-    
     let childProgressView = ProgressSpinnerViewController()
     
+    var users = [User]()
+    var userEmailsForTableView = [String]()
     var currentUser: FirebaseAuth.User!
-    var otherUserID: String!
+    var otherUser: User!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.database.collection("users")
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching users: \(error)")
+                    return
+                }
+                
+                if let documents = querySnapshot?.documents {
+                    self.users.removeAll()
+                    for document in documents {
+                        do {
+                            let user = try document.data(as: User.self)
+                            if user.uid != self.currentUser.uid {
+                                self.users.append(user)
+                                self.userEmailsForTableView.append(user.email)
+                            }
+                        } catch {
+                            print("Error decoding user data")
+                        }
+                        self.newMessageScreen.tableViewSearchResults.reloadData()
+                    }
+                } else {
+                    print("No users found.")
+                    return
+                }
+            }
+    }
     
     override func loadView() {
         view = newMessageScreen
@@ -27,111 +56,63 @@ class NewMessageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "New Message"
+        // newMessageScreen.buttonSend.addTarget(self, action: #selector(onClickButtonSend), for: .touchUpInside)
         
-        newMessageScreen.buttonSend.addTarget(self, action: #selector(onClickButtonSend), for: .touchUpInside)
+        newMessageScreen.tableViewSearchResults.delegate = self
+        newMessageScreen.tableViewSearchResults.dataSource = self
+        
+        newMessageScreen.searchBar.delegate = self
     }
     
-    func showErrorAlert(errorText:String) {
+    func showErrorAlert(errorText: String) {
         let alert = UIAlertController(title: "Error", message: errorText, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true)
     }
     
-    // gets user uid by their email
-    func getUserUID(byEmail email: String, completion: @escaping (String?) -> Void) {
-        let db = Firestore.firestore()
-        let usersRef = db.collection("users")
-
-        usersRef.whereField("email", isEqualTo: email).getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
-                completion(nil)
-                return
-            }
-
-            guard let documents = snapshot?.documents, !documents.isEmpty else {
-                print("No user found with the provided email.")
-                completion(nil)
-                return
-            }
-
-            // Assuming email is unique, we get the first matching document
-            let userData = documents[0].data()
-            if let uid = userData["uid"] as? String {
-                completion(uid)
-            } else {
-                print("UID not found in user data.")
-                completion(nil)
-            }
-        }
-    }
-    
-    // create a new chat collection if not already existed
-    @objc func onClickButtonSend() {
-        if let messageText = newMessageScreen.textViewMessage.text {
-            
-            let sentToEmail = newMessageScreen.textFieldEmail.text!
-            getUserUID(byEmail: sentToEmail) { uid in
-                if let uid = uid {
-                    self.showActivityIndicator()
-                    self.otherUserID = uid
-                    
-                    let newMessage = Message(uid: self.currentUser.uid, name: self.currentUser.displayName!, text: messageText)
-                    
-                    self.addChatToFirestore(chat: Chat(
-                        participantNames: [],
-                        participants:[self.currentUser.uid, uid],
-                        lastMessage: "",
-                        lastMessageTime: Date()))
-                    
-                    self.addMessageToFirestore(message: newMessage)
-                } else {
-                    print("User not found.")
-                }
-            }
-        } else {
-            showErrorAlert(errorText: "Cannot send empty message!")
-        }
-    }
-    
     // adds a new chat document to chats collection
-    func addChatToFirestore(chat: Chat) {
-
-        let collectionChat = database
-            .collection("chats")
-        do {
-            try collectionChat.addDocument(from: chat, completion: {(error) in
-                if error == nil {
-                    
+    func addChatToFirestore() {
+        let chatData = [
+            "participantNames": [currentUser.displayName, self.otherUser.displayName],
+            "participants": [self.currentUser.uid, otherUser.uid],
+            "lastMessage": nil,
+            "lastMessageTime": nil
+        ]
+        if let otherUID = otherUser.uid {
+            let chatID = getChatIDForUsers(userIds: [self.currentUser.uid, otherUID]);
+            
+            database.collection("chats")
+                .document(chatID).setData(chatData) { error in
+                    if let error = error {
+                        print("Error creating chat document: \(error)")
+                    } else {
+                        self.hideActivityIndicator()
+                        print("Chat document created successfully with ID: \(chatID)")
+                    }
                 }
-            })
-        } catch {
-            print("Error adding chat to firestore collection")
         }
     }
     
-    func addMessageToFirestore(message: Message) {
-        let collectionMessages = database
-            .collection("chats")
-            .document(message.uid)
-            .collection("messages")
-        
-        do {
-            try collectionMessages.addDocument(from: message, completion: {(error) in
-                if error == nil {
-                    self.hideActivityIndicator()
-                    self.navigationController?.popViewController(animated: true)
-                }
-            })
-        } catch {
-            print("Error adding message to chat")
-        }
+    func getChatIDForUsers(userIds: [String]) -> String {
+        return userIds.sorted().joined(separator: "_")
     }
 }
 
-extension NewMessageViewController:ProgressSpinnerDelegate{
+extension NewMessageViewController: UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            userEmailsForTableView = users.map { $0.email }
+        } else {
+            userEmailsForTableView = users.filter { user in
+                user.email.lowercased().contains(searchText.lowercased())
+            }.map { $0.email }
+        }
+        self.newMessageScreen.tableViewSearchResults.reloadData()
+    }
+}
+
+extension NewMessageViewController: ProgressSpinnerDelegate{
     func showActivityIndicator(){
         addChild(childProgressView)
         view.addSubview(childProgressView.view)

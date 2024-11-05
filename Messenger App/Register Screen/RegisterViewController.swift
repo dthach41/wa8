@@ -91,23 +91,22 @@ class RegisterViewController: UIViewController {
     // registers on Firebase
     func registerNewAccount(){
         showActivityIndicator()
-        //MARK: create a Firebase user with email and password...
         if let name = registerScreen.textFieldName.text,
            let email = registerScreen.textFieldEmail.text,
            let password = registerScreen.textFieldPassword.text{
             //Validations....
             Auth.auth().createUser(withEmail: email, password: password, completion: {result, error in
                 if error == nil{
-                    //MARK: the user creation is successful...
                     self.hideActivityIndicator()
                     self.setNameOfTheUserInFirebaseAuth(name: name)
                     
-                    let currUser = User(uid: (result?.user.uid)!, displayName: name, email: email)
-                    
-                    self.addNewUserToCollection(user: currUser)
-                    
-                }else{
-                    //MARK: there is a error creating the user...
+                    if let newUser = Auth.auth().currentUser {
+                        self.createUserDoc(user: newUser)
+                    }
+//                    let currUser = User(uid: (result?.user.uid)!, displayName: name, email: email)
+//                    
+//                    self.addNewUserToCollection(user: currUser)
+                } else {
                     self.showAccountAlreadyExists()
                 }
             })
@@ -133,17 +132,32 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    func addNewUserToCollection(user: User) {
-        let collectionUsers = database
-            .collection("users")
-        do {
-            try collectionUsers.addDocument(from: user, completion: {(error) in
-                if error == nil {
-                    self.hideActivityIndicator()
-                }
-            })
-        } catch {
-            print("Error adding user to collection / doesnt exists")
+//    func addNewUserToCollection(user: User) {
+//        let collectionUsers = database
+//            .collection("users")
+//        do {
+//            try collectionUsers.addDocument(from: user, completion: {(error) in
+//                if error == nil {
+//                    self.hideActivityIndicator()
+//                }
+//            })
+//        } catch {
+//            print("Error adding user to collection / doesnt exists")
+//        }
+//    }
+    
+    func createUserDoc(user: FirebaseAuth.User) {
+        let userData = [
+            "displayName": user.displayName ?? "",
+            "email": user.email ?? "",
+        ]
+        
+        database.collection("users").document(user.uid).setData(userData) { error in
+            if let error = error {
+                print("Error creating user document: \(error)")
+            } else {
+                print("User document created successfully with ID: \(user.uid)")
+            }
         }
     }
 }

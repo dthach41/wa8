@@ -44,6 +44,7 @@ class ChatViewController: UIViewController {
     @objc func onButtonSendTapped() {
         showActivityIndicator()
         if let messageText = chatView.textfieldMessage.text {
+            chatView.textfieldMessage.text = ""
             let message = Message(uid: currentUser.uid, name: currentUser.displayName!, text: messageText)
             addMessageToFirestore(message: message)
         } else {

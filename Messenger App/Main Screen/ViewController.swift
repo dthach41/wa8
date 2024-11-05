@@ -79,6 +79,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Message"
         
         mainScreen.tableViewChatRooms.delegate = self
         mainScreen.tableViewChatRooms.dataSource = self
