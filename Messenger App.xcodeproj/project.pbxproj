@@ -26,6 +26,9 @@
 		60005F652CD96B6B00E0BF91 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60005F642CD96B6B00E0BF91 /* RegisterViewController.swift */; };
 		60005F672CD96B8000E0BF91 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60005F662CD96B8000E0BF91 /* RegisterView.swift */; };
 		60005F6A2CD96BFF00E0BF91 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60005F692CD96BFF00E0BF91 /* MainScreenView.swift */; };
+		602DB5F22CD9DFCC001A3EB4 /* NewMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DB5F12CD9DFCC001A3EB4 /* NewMessageView.swift */; };
+		602DB5F42CD9DFDB001A3EB4 /* NewMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DB5F32CD9DFDB001A3EB4 /* NewMessageViewController.swift */; };
+		602DB5F62CD9F5AF001A3EB4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DB5F52CD9F5AF001A3EB4 /* User.swift */; };
 		60B49D562CD93CD0006E308B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B49D552CD93CD0006E308B /* AppDelegate.swift */; };
 		60B49D582CD93CD0006E308B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B49D572CD93CD0006E308B /* SceneDelegate.swift */; };
 		60B49D5A2CD93CD0006E308B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B49D592CD93CD0006E308B /* ViewController.swift */; };
@@ -51,6 +54,9 @@
 		60005F642CD96B6B00E0BF91 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		60005F662CD96B8000E0BF91 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		60005F692CD96BFF00E0BF91 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		602DB5F12CD9DFCC001A3EB4 /* NewMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageView.swift; sourceTree = "<group>"; };
+		602DB5F32CD9DFDB001A3EB4 /* NewMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageViewController.swift; sourceTree = "<group>"; };
+		602DB5F52CD9F5AF001A3EB4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		60B49D522CD93CD0006E308B /* Messenger App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Messenger App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60B49D552CD93CD0006E308B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60B49D572CD93CD0006E308B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +106,7 @@
 			children = (
 				32D05A032CD994E4004B4920 /* Chat.swift */,
 				32D059FD2CD97E48004B4920 /* Message.swift */,
+				602DB5F52CD9F5AF001A3EB4 /* User.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -140,6 +147,15 @@
 			path = "Main Screen";
 			sourceTree = "<group>";
 		};
+		602DB5F02CD9DFB3001A3EB4 /* New Message */ = {
+			isa = PBXGroup;
+			children = (
+				602DB5F12CD9DFCC001A3EB4 /* NewMessageView.swift */,
+				602DB5F32CD9DFDB001A3EB4 /* NewMessageViewController.swift */,
+			);
+			path = "New Message";
+			sourceTree = "<group>";
+		};
 		60B49D492CD93CD0006E308B = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +175,7 @@
 		60B49D542CD93CD0006E308B /* Messenger App */ = {
 			isa = PBXGroup;
 			children = (
+				602DB5F02CD9DFB3001A3EB4 /* New Message */,
 				32D05A002CD97E7D004B4920 /* Configs.swift */,
 				32D059FA2CD97C62004B4920 /* Data Models */,
 				32D05A022CD9929F004B4920 /* Progress Indicator */,
@@ -259,10 +276,12 @@
 			files = (
 				32D05A082CD99625004B4920 /* ProgressSpinnerDelegate.swift in Sources */,
 				60B49D5A2CD93CD0006E308B /* ViewController.swift in Sources */,
+				602DB5F22CD9DFCC001A3EB4 /* NewMessageView.swift in Sources */,
 				32D059F92CD97C3E004B4920 /* MessagesTableViewCell.swift in Sources */,
 				60B49D562CD93CD0006E308B /* AppDelegate.swift in Sources */,
 				32D059F62CD97BCA004B4920 /* ChatView.swift in Sources */,
 				60005F612CD96A9400E0BF91 /* LoginView.swift in Sources */,
+				602DB5F42CD9DFDB001A3EB4 /* NewMessageViewController.swift in Sources */,
 				32D05A362CD9B28F004B4920 /* ChatProgressIndicatorManager.swift in Sources */,
 				60005F672CD96B8000E0BF91 /* RegisterView.swift in Sources */,
 				60005F652CD96B6B00E0BF91 /* RegisterViewController.swift in Sources */,
@@ -275,6 +294,7 @@
 				60005F6A2CD96BFF00E0BF91 /* MainScreenView.swift in Sources */,
 				32D05A042CD994E5004B4920 /* Chat.swift in Sources */,
 				32D05A012CD97E7F004B4920 /* Configs.swift in Sources */,
+				602DB5F62CD9F5AF001A3EB4 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

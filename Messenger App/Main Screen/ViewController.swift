@@ -29,16 +29,16 @@ class ViewController: UIViewController {
                 //MARK: not signed in...
                 let loginViewController = LoginViewController()
                 self.navigationController?.pushViewController(loginViewController, animated: true)
-                print("to login screen")
                 
             }else{
                 //MARK: the user is signed in...
                 self.view = self.mainScreen
+                self.currentUser = user
                 self.mainScreen.buttonLogout.addTarget(self, action: #selector(self.onSignOutClicked), for: .touchUpInside)
+                self.mainScreen.buttonNewMessage.addTarget(self, action: #selector(self.onNewMessageButtonClicked), for: .touchUpInside)
             }
         }
     }
-    
     
     
     
@@ -55,6 +55,13 @@ class ViewController: UIViewController {
         logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         self.present(logoutAlert, animated: true)
+    }
+    
+    
+    @objc func onNewMessageButtonClicked() {
+        let newMessageViewController = NewMessageViewController()
+        newMessageViewController.currentUser = self.currentUser
+        navigationController?.pushViewController(newMessageViewController, animated: true)
     }
 
 

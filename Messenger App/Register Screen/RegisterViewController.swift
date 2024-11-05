@@ -14,6 +14,8 @@ class RegisterViewController: UIViewController {
     
     let registerScreen = RegisterView()
     
+    let database = Firestore.firestore()
+    
     let childProgressView = ProgressSpinnerViewController()
     
     override func loadView() {
@@ -106,6 +108,11 @@ class RegisterViewController: UIViewController {
                     //MARK: the user creation is successful...
                     self.hideActivityIndicator()
                     self.setNameOfTheUserInFirebaseAuth(name: name)
+                    
+                    let currUser = User(displayName: name, email: email, uid: (result?.user.uid)!)
+                    
+                    self.addNewUserToCollection(user: currUser)
+                    
                 }else{
                     //MARK: there is a error creating the user...
                     self.showAccountAlreadyExists()
@@ -129,8 +136,24 @@ class RegisterViewController: UIViewController {
         }
         else {
             registerNewAccount()
+            
         }
     }
+    
+    func addNewUserToCollection(user: User) {
+        let collectionUsers = database
+            .collection("users")
+        do {
+            try collectionUsers.addDocument(from: user, completion: {(error) in
+                if error == nil {
+                    self.hideActivityIndicator()
+                }
+            })
+        } catch {
+            print("Error adding user to collection / doesnt exists")
+        }
+    }
+
     
 }
 

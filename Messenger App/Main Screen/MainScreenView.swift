@@ -10,7 +10,7 @@ import UIKit
 
 class MainScreenView: UIView {
     var buttonLogout: UIButton!
-    var labelTest: UILabel!
+    var buttonNewMessage: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,6 +18,7 @@ class MainScreenView: UIView {
         self.backgroundColor = .white
         
         setupButtonLogout()
+        setupButtonNewMessage()
         
         initConstraints()
     }
@@ -32,11 +33,28 @@ class MainScreenView: UIView {
         self.addSubview(buttonLogout)
     }
     
+    func setupButtonNewMessage() {
+        buttonNewMessage = UIButton(type: .system)
+        buttonNewMessage.setImage(UIImage(systemName: "bubble"), for: .normal)
+        buttonNewMessage.contentHorizontalAlignment = .fill
+        buttonNewMessage.contentVerticalAlignment = .fill
+        buttonNewMessage.imageView?.contentMode = .scaleAspectFit
+        buttonNewMessage.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(buttonNewMessage)
+    }
+    
+    
+    
     
     func initConstraints() {
         NSLayoutConstraint.activate([
             buttonLogout.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            buttonLogout.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            buttonLogout.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 24),
+            
+            buttonNewMessage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
+            buttonNewMessage.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            
+            
         ])
     }
     
