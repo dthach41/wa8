@@ -7,9 +7,9 @@
 
 import UIKit
 
+import FirebaseAuth
+
 class LoginViewController: UIViewController {
-    let defaults = UserDefaults.standard
-    
     let loginScreen = LoginView()
     
     override func loadView() {
@@ -43,11 +43,21 @@ class LoginViewController: UIViewController {
     
     
     @objc func onButtonLoginClicked() {
-        
+        let email = loginScreen.textFieldEmail.text!
+        let password = loginScreen.textFieldPassword.text!
+        //MARK: authenticating the user...
+        Auth.auth().signIn(withEmail: email, password: password, completion: {(result, error) in
+            if error == nil{
+                //MARK: user authenticated...
+                self.navigationController?.popViewController(animated: true)
+                print("sucess")
+            }else{
+                //MARK: alert that no user found or password wrong...
+            }
+        })
     }
     
     @objc func onButtonRegisterClicked() {
-        print("register screen")
         let registerViewController = RegisterViewController()
         navigationController?.pushViewController(registerViewController, animated: true)
     }

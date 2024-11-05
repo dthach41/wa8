@@ -16,6 +16,8 @@ class RegisterView: UIView {
     var textFieldEmail: UITextField!
     var labelPassword: UILabel!
     var textFieldPassword: UITextField!
+    var labelConfirmPassword: UILabel!
+    var textfieldConfirmPassword: UITextField!
     var buttonRegister: UIButton!
     
     override init(frame: CGRect) {
@@ -29,6 +31,8 @@ class RegisterView: UIView {
         setupTextFieldEmail()
         setupLabelPassword()
         setupTextFieldPassword()
+        setupLabelConfirmPassword()
+        setupTextFieldConfirmPassword()
         setupButtonRegister()
         
         initConstraints()
@@ -56,6 +60,7 @@ class RegisterView: UIView {
         textFieldName = UITextField()
         textFieldName.borderStyle = .roundedRect
         textFieldName.layer.borderWidth = 1
+        textFieldName.autocapitalizationType = .none
         textFieldName.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(textFieldName)
     }
@@ -72,6 +77,7 @@ class RegisterView: UIView {
         textFieldEmail = UITextField()
         textFieldEmail.borderStyle = .roundedRect
         textFieldEmail.layer.borderWidth = 1
+        textFieldEmail.autocapitalizationType = .none
         textFieldEmail.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(textFieldEmail)
     }
@@ -88,8 +94,28 @@ class RegisterView: UIView {
         textFieldPassword = UITextField()
         textFieldPassword.borderStyle = .roundedRect
         textFieldPassword.layer.borderWidth = 1
+        textFieldPassword.isSecureTextEntry = true
+        textFieldPassword.autocapitalizationType = .none
         textFieldPassword.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(textFieldPassword)
+    }
+    
+    func setupLabelConfirmPassword() {
+        labelConfirmPassword = UILabel()
+        labelConfirmPassword.text = "Confirm Password:"
+        labelConfirmPassword.font = .systemFont(ofSize: 24)
+        labelConfirmPassword.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(labelConfirmPassword)
+    }
+    
+    func setupTextFieldConfirmPassword() {
+        textfieldConfirmPassword = UITextField()
+        textfieldConfirmPassword.borderStyle = .roundedRect
+        textfieldConfirmPassword.layer.borderWidth = 1
+        textfieldConfirmPassword.isSecureTextEntry = true
+        textfieldConfirmPassword.autocapitalizationType = .none
+        textfieldConfirmPassword.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(textfieldConfirmPassword)
     }
 
     
@@ -135,7 +161,17 @@ class RegisterView: UIView {
             textFieldPassword.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 48),
             textFieldPassword.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -48),
             
-            buttonRegister.topAnchor.constraint(equalTo: textFieldPassword.bottomAnchor, constant: 24),
+            labelConfirmPassword.topAnchor.constraint(equalTo: textFieldPassword.bottomAnchor, constant: 24),
+            labelConfirmPassword.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            
+            textfieldConfirmPassword.topAnchor.constraint(equalTo: labelConfirmPassword.bottomAnchor, constant: 16),
+            textfieldConfirmPassword.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            textfieldConfirmPassword.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 48),
+            textfieldConfirmPassword.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -48),
+            
+            
+            
+            buttonRegister.topAnchor.constraint(equalTo: textfieldConfirmPassword.bottomAnchor, constant: 24),
             buttonRegister.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 120),
             buttonRegister.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -120),
             buttonRegister.heightAnchor.constraint(equalToConstant: 40),

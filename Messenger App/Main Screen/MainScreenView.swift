@@ -9,6 +9,7 @@
 import UIKit
 
 class MainScreenView: UIView {
+    var buttonLogout: UIButton!
     var labelTest: UILabel!
     
     override init(frame: CGRect) {
@@ -16,25 +17,26 @@ class MainScreenView: UIView {
         
         self.backgroundColor = .white
         
-        
-        setupLabelTest()
+        setupButtonLogout()
         
         initConstraints()
     }
     
-    func setupLabelTest() {
-        labelTest = UILabel()
-        labelTest.text = "Test"
-        labelTest.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(labelTest)
+    func setupButtonLogout() {
+        buttonLogout = UIButton(type: .system)
+        buttonLogout.setImage(UIImage(systemName: "rectangle.portrait.and.arrow.right"), for: .normal)
+        buttonLogout.contentHorizontalAlignment = .fill
+        buttonLogout.contentVerticalAlignment = .fill
+        buttonLogout.imageView?.contentMode = .scaleAspectFit
+        buttonLogout.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(buttonLogout)
     }
     
     
     func initConstraints() {
         NSLayoutConstraint.activate([
-            labelTest.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            labelTest.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor)
-            
+            buttonLogout.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
+            buttonLogout.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -24),
         ])
     }
     

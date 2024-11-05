@@ -14,7 +14,7 @@ class RegisterViewController: UIViewController {
     
     let registerScreen = RegisterView()
     
-    let defaults = UserDefaults.standard
+    let childProgressView = ProgressSpinnerViewController()
     
     override func loadView() {
         view = registerScreen
@@ -55,6 +55,27 @@ class RegisterViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
+    func showPasswordNotMatching() {
+        let alert = UIAlertController(title: "", message: "Passwords do not match. Please try again", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+    
+    func showAccountAlreadyExists() {
+        let alert = UIAlertController(title: "", message: "Account already exists! Please enter a different email", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+    
+    func showPasswordLengthError() {
+        let alert = UIAlertController(title: "", message: "Password must be 6 characters or longer", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+    
     
     //MARK: We set the name of the user after we create the account...
     func setNameOfTheUserInFirebaseAuth(name: String){
@@ -71,8 +92,10 @@ class RegisterViewController: UIViewController {
         })
     }
     
+    
     // registers on Firebase
     func registerNewAccount(){
+        showActivityIndicator()
         //MARK: create a Firebase user with email and password...
         if let name = registerScreen.textFieldName.text,
            let email = registerScreen.textFieldEmail.text,
@@ -81,10 +104,11 @@ class RegisterViewController: UIViewController {
             Auth.auth().createUser(withEmail: email, password: password, completion: {result, error in
                 if error == nil{
                     //MARK: the user creation is successful...
+                    self.hideActivityIndicator()
                     self.setNameOfTheUserInFirebaseAuth(name: name)
                 }else{
                     //MARK: there is a error creating the user...
-                    print(error!)
+                    self.showAccountAlreadyExists()
                 }
             })
         }
@@ -97,14 +121,31 @@ class RegisterViewController: UIViewController {
         else if !isValidEmail(email: registerScreen.textFieldEmail.text!) {
             showInvalidEmail()
         }
+        else if registerScreen.textFieldPassword.text! != registerScreen.textfieldConfirmPassword.text! {
+            showPasswordNotMatching()
+        }
+        else if registerScreen.textFieldPassword.text!.count < 6 {
+            showPasswordLengthError()
+        }
         else {
             registerNewAccount()
         }
-        
-        
-
     }
     
+}
 
+
+extension RegisterViewController:ProgressSpinnerDelegate{
+    func showActivityIndicator(){
+        addChild(childProgressView)
+        view.addSubview(childProgressView.view)
+        childProgressView.didMove(toParent: self)
+    }
+    
+    func hideActivityIndicator(){
+        childProgressView.willMove(toParent: nil)
+        childProgressView.view.removeFromSuperview()
+        childProgressView.removeFromParent()
+    }
 }
 
