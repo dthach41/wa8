@@ -30,7 +30,6 @@ class NewMessageViewController: UIViewController {
         title = "New Message"
         
         newMessageScreen.buttonSend.addTarget(self, action: #selector(onClickButtonSend), for: .touchUpInside)
-        
     }
     
     func showErrorAlert(errorText:String) {
@@ -69,8 +68,6 @@ class NewMessageViewController: UIViewController {
         }
     }
     
-    
-    
     // create a new chat collection if not already existed
     @objc func onClickButtonSend() {
         if let messageText = newMessageScreen.textViewMessage.text {
@@ -84,22 +81,16 @@ class NewMessageViewController: UIViewController {
                     let newMessage = Message(uid: self.currentUser.uid, name: self.currentUser.displayName!, text: messageText)
                     
                     self.addChatToFirestore(chat: Chat(
+                        participantNames: [],
                         participants:[self.currentUser.uid, uid],
                         lastMessage: "",
                         lastMessageTime: Date()))
                     
                     self.addMessageToFirestore(message: newMessage)
-                    
-                    
-                    
-                    
-                    
                 } else {
                     print("User not found.")
                 }
             }
-
-            
         } else {
             showErrorAlert(errorText: "Cannot send empty message!")
         }
@@ -121,9 +112,7 @@ class NewMessageViewController: UIViewController {
         }
     }
     
-    
     func addMessageToFirestore(message: Message) {
-        
         let collectionMessages = database
             .collection("chats")
             .document(message.uid)
@@ -140,8 +129,6 @@ class NewMessageViewController: UIViewController {
             print("Error adding message to chat")
         }
     }
-
-
 }
 
 extension NewMessageViewController:ProgressSpinnerDelegate{

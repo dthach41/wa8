@@ -17,6 +17,8 @@
 		32D05A062CD9960F004B4920 /* ProgressSpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D05A052CD9960F004B4920 /* ProgressSpinnerViewController.swift */; };
 		32D05A082CD99625004B4920 /* ProgressSpinnerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D05A072CD9961D004B4920 /* ProgressSpinnerDelegate.swift */; };
 		32D05A362CD9B28F004B4920 /* ChatProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D05A352CD9B27F004B4920 /* ChatProgressIndicatorManager.swift */; };
+		32D05A6E2CDAA49E004B4920 /* MainTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D05A6D2CDAA49E004B4920 /* MainTableViewManager.swift */; };
+		32D05A702CDAA4A5004B4920 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D05A6F2CDAA4A5004B4920 /* ChatTableViewCell.swift */; };
 		60005F562CD93E1800E0BF91 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60005F552CD93E1800E0BF91 /* GoogleService-Info.plist */; };
 		60005F592CD93F4100E0BF91 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 60005F582CD93F4100E0BF91 /* FirebaseAuth */; };
 		60005F5B2CD93F4100E0BF91 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 60005F5A2CD93F4100E0BF91 /* FirebaseFirestore */; };
@@ -48,6 +50,8 @@
 		32D05A052CD9960F004B4920 /* ProgressSpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerViewController.swift; sourceTree = "<group>"; };
 		32D05A072CD9961D004B4920 /* ProgressSpinnerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerDelegate.swift; sourceTree = "<group>"; };
 		32D05A352CD9B27F004B4920 /* ChatProgressIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatProgressIndicatorManager.swift; sourceTree = "<group>"; };
+		32D05A6D2CDAA49E004B4920 /* MainTableViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewManager.swift; sourceTree = "<group>"; };
+		32D05A6F2CDAA4A5004B4920 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		60005F552CD93E1800E0BF91 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		60005F602CD96A9400E0BF91 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		60005F622CD96AB000E0BF91 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +124,15 @@
 			path = "Progress Indicator";
 			sourceTree = "<group>";
 		};
+		32D05A6C2CDAA47F004B4920 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				60005F692CD96BFF00E0BF91 /* MainScreenView.swift */,
+				32D05A6F2CDAA4A5004B4920 /* ChatTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		60005F5E2CD96A7C00E0BF91 /* Login Screen */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,8 +154,9 @@
 		60005F682CD96BDF00E0BF91 /* Main Screen */ = {
 			isa = PBXGroup;
 			children = (
+				32D05A6C2CDAA47F004B4920 /* Views */,
 				60B49D592CD93CD0006E308B /* ViewController.swift */,
-				60005F692CD96BFF00E0BF91 /* MainScreenView.swift */,
+				32D05A6D2CDAA49E004B4920 /* MainTableViewManager.swift */,
 			);
 			path = "Main Screen";
 			sourceTree = "<group>";
@@ -175,8 +189,8 @@
 		60B49D542CD93CD0006E308B /* Messenger App */ = {
 			isa = PBXGroup;
 			children = (
-				602DB5F02CD9DFB3001A3EB4 /* New Message */,
 				32D05A002CD97E7D004B4920 /* Configs.swift */,
+				602DB5F02CD9DFB3001A3EB4 /* New Message */,
 				32D059FA2CD97C62004B4920 /* Data Models */,
 				32D05A022CD9929F004B4920 /* Progress Indicator */,
 				32D059F22CD97BA9004B4920 /* ChatView */,
@@ -282,6 +296,7 @@
 				32D059F62CD97BCA004B4920 /* ChatView.swift in Sources */,
 				60005F612CD96A9400E0BF91 /* LoginView.swift in Sources */,
 				602DB5F42CD9DFDB001A3EB4 /* NewMessageViewController.swift in Sources */,
+				32D05A702CDAA4A5004B4920 /* ChatTableViewCell.swift in Sources */,
 				32D05A362CD9B28F004B4920 /* ChatProgressIndicatorManager.swift in Sources */,
 				60005F672CD96B8000E0BF91 /* RegisterView.swift in Sources */,
 				60005F652CD96B6B00E0BF91 /* RegisterViewController.swift in Sources */,
@@ -292,6 +307,7 @@
 				60B49D582CD93CD0006E308B /* SceneDelegate.swift in Sources */,
 				32D059F42CD97BBB004B4920 /* ChatViewController.swift in Sources */,
 				60005F6A2CD96BFF00E0BF91 /* MainScreenView.swift in Sources */,
+				32D05A6E2CDAA49E004B4920 /* MainTableViewManager.swift in Sources */,
 				32D05A042CD994E5004B4920 /* Chat.swift in Sources */,
 				32D05A012CD97E7F004B4920 /* Configs.swift in Sources */,
 				602DB5F62CD9F5AF001A3EB4 /* User.swift in Sources */,

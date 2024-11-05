@@ -9,6 +9,7 @@ import UIKit
 
 class MessagesTableViewCell: UITableViewCell {
 
+    var wrapperCellView: UIView!
     var labelName: UILabel!
     var labelText: UILabel!
     var labelDateTime: UILabel!
@@ -24,11 +25,15 @@ class MessagesTableViewCell: UITableViewCell {
         initConstraints();
     }
     
+    func setupWrapperCellView() {
+        
+    }
+    
     func setupLabelName() {
         labelName = UILabel()
         labelName.font = UIFont.boldSystemFont(ofSize: 14)
         labelName.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(labelName)
+        self.addSubview(labelName)
     }
     
     func setupLabelText() {
@@ -36,7 +41,7 @@ class MessagesTableViewCell: UITableViewCell {
         labelText.font = UIFont.systemFont(ofSize: 16)
         labelText.numberOfLines = 0
         labelText.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(labelText)
+        self.addSubview(labelText)
     }
     
     func setupLabelDateTime() {
@@ -44,7 +49,7 @@ class MessagesTableViewCell: UITableViewCell {
         labelDateTime.font = UIFont.systemFont(ofSize: 12)
         labelDateTime.textColor = .gray
         labelDateTime.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(labelDateTime)
+        self.addSubview(labelDateTime)
     }
     
     func initConstraints() {

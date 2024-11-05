@@ -23,8 +23,6 @@ class LoginViewController: UIViewController {
 
         loginScreen.buttonLogin.addTarget(self, action: #selector(onButtonLoginClicked), for: .touchUpInside)
         loginScreen.buttonRegister.addTarget(self, action: #selector(onButtonRegisterClicked), for: .touchUpInside)
-        
-    
     }
     
     func showUserNotFound() {
@@ -41,18 +39,15 @@ class LoginViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
-    
     @objc func onButtonLoginClicked() {
         let email = loginScreen.textFieldEmail.text!
         let password = loginScreen.textFieldPassword.text!
-        //MARK: authenticating the user...
         Auth.auth().signIn(withEmail: email, password: password, completion: {(result, error) in
             if error == nil{
-                //MARK: user authenticated...
                 self.navigationController?.popViewController(animated: true)
                 print("sucess")
             }else{
-                //MARK: alert that no user found or password wrong...
+                print(error)
             }
         })
     }
@@ -61,7 +56,4 @@ class LoginViewController: UIViewController {
         let registerViewController = RegisterViewController()
         navigationController?.pushViewController(registerViewController, animated: true)
     }
-    
-
 }
-

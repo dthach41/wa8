@@ -11,6 +11,7 @@ import UIKit
 class MainScreenView: UIView {
     var buttonLogout: UIButton!
     var buttonNewMessage: UIButton!
+    var tableViewChatRooms: UITableView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,6 +20,7 @@ class MainScreenView: UIView {
         
         setupButtonLogout()
         setupButtonNewMessage()
+        setupTableViewChatRooms()
         
         initConstraints()
     }
@@ -43,9 +45,13 @@ class MainScreenView: UIView {
         self.addSubview(buttonNewMessage)
     }
     
-    
-    
-    
+    func setupTableViewChatRooms() {
+        tableViewChatRooms = UITableView()
+        tableViewChatRooms.register(ChatTableViewCell.self, forCellReuseIdentifier: Configs.tableViewChatsID)
+        tableViewChatRooms.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(tableViewChatRooms)
+    }
+        
     func initConstraints() {
         NSLayoutConstraint.activate([
             buttonLogout.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -54,7 +60,10 @@ class MainScreenView: UIView {
             buttonNewMessage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
             buttonNewMessage.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -24),
             
-            
+            tableViewChatRooms.topAnchor.constraint(equalTo: buttonLogout.bottomAnchor, constant: 10),
+            tableViewChatRooms.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            tableViewChatRooms.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            tableViewChatRooms.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10)
         ])
     }
     

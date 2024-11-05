@@ -9,14 +9,13 @@ import Foundation
 import FirebaseFirestore
 
 struct User: Codable {
-    @DocumentID var id: String?
+    @DocumentID var uid: String?
     var displayName: String
     var email: String
-    var uid: String
     
-    init(displayName: String, email: String, uid: String) {
+    init(uid: String?, displayName: String, email: String) {
+        self.uid = uid
         self.displayName = displayName
         self.email = email
-        self.uid = uid
     }
 }

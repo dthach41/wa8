@@ -32,8 +32,6 @@ class LoginView: UIView {
         initConstraints()
     }
     
-
-    
     func setupLabelLogin() {
         labelLogin = UILabel()
         labelLogin.text = "Login"
@@ -41,7 +39,6 @@ class LoginView: UIView {
         labelLogin.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(labelLogin)
     }
-    
     
     func setupLabelEmail() {
         labelEmail = UILabel()
@@ -100,13 +97,10 @@ class LoginView: UIView {
         self.addSubview(buttonRegister)
     }
     
-
     func initConstraints() {
         NSLayoutConstraint.activate([
-            
             labelLogin.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 64),
             labelLogin.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            
             
             labelEmail.topAnchor.constraint(equalTo: labelLogin.bottomAnchor, constant: 24),
             labelEmail.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
@@ -133,15 +127,10 @@ class LoginView: UIView {
             buttonRegister.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 120),
             buttonRegister.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -120),
             buttonRegister.heightAnchor.constraint(equalToConstant: 40),
-            
-            
         ])
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
-

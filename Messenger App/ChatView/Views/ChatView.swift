@@ -46,18 +46,28 @@ class ChatView: UIView {
     
     func initConstraints() {
         NSLayoutConstraint.activate([
-            textfieldMessage.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            textfieldMessage.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            textfieldMessage.trailingAnchor.constraint(lessThanOrEqualTo: buttonSend.leadingAnchor, constant: -5),
-            
-            buttonSend.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            buttonSend.leadingAnchor.constraint(lessThanOrEqualTo: textfieldMessage.trailingAnchor, constant: 5),
-            buttonSend.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: -10),
-            
             tableViewMessages.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
             tableViewMessages.bottomAnchor.constraint(equalTo: textfieldMessage.topAnchor, constant: -10),
             tableViewMessages.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             tableViewMessages.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+
+//            textfieldMessage.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+//            textfieldMessage.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+//            textfieldMessage.trailingAnchor.constraint(lessThanOrEqualTo: buttonSend.leadingAnchor, constant: -10),
+            
+            buttonSend.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            buttonSend.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+
+            textfieldMessage.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            textfieldMessage.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 10),
+
+            
+//            buttonSend.leadingAnchor.constraint(lessThanOrEqualTo: textfieldMessage.trailingAnchor, constant: 5),
+//            buttonSend.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: -10),
+//            buttonSend.centerYAnchor.constraint(equalTo: textfieldMessage.centerYAnchor),
+//            buttonSend.widthAnchor.constraint(equalToConstant: 20),
+//            buttonSend.heightAnchor.constraint(equalToConstant: 20),
+
         ])
     }
     

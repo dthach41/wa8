@@ -17,7 +17,7 @@ class ChatViewController: UIViewController {
     
     var messages = [Message]()
     var currentUser: FirebaseAuth.User!
-    var otherUser: FirebaseAuth.User!
+    var otherUser: User!
     
     override func loadView() {
         view = chatView
@@ -37,6 +37,8 @@ class ChatViewController: UIViewController {
         
         chatView.tableViewMessages.delegate = self
         chatView.tableViewMessages.dataSource = self
+        
+        chatView.tableViewMessages.separatorStyle = .none
     }
     
     @objc func onButtonSendTapped() {
@@ -51,45 +53,47 @@ class ChatViewController: UIViewController {
     
     func loadMessages() {
         let currentUserID = currentUser.uid
-        let otherUserID = otherUser.uid
-        database.collection("chats")
-            .document(getChatIDForUsers(userIds: [currentUserID, otherUserID]))
-            .collection("messages")
-            .addSnapshotListener(includeMetadataChanges: false, listener: {querySnapshot, error in
-                if let documents = querySnapshot?.documents {
-                    self.messages.removeAll()
-                    for document in documents {
-                        do {
-                            let message = try document.data(as: Message.self)
-                            self.messages.append(message)
-                        } catch {
-                            print(error)
+        if let otherUserID = otherUser.uid {
+            database.collection("chats")
+                .document(getChatIDForUsers(userIds: [currentUserID, otherUserID]))
+                .collection("messages")
+                .addSnapshotListener(includeMetadataChanges: false, listener: {querySnapshot, error in
+                    if let documents = querySnapshot?.documents {
+                        self.messages.removeAll()
+                        for document in documents {
+                            do {
+                                let message = try document.data(as: Message.self)
+                                self.messages.append(message)
+                            } catch {
+                                print(error)
+                            }
                         }
+                        self.messages.sort(by: {$0.sentAt < $1.sentAt})
+                        self.chatView.tableViewMessages.reloadData()
+                        self.scrollToBottom()
                     }
-                    self.messages.sort(by: {$0.sentAt < $1.sentAt})
-                    self.chatView.tableViewMessages.reloadData()
-                    self.scrollToBottom()
-                }
-            })
+                })
+        }
     }
     
     func addMessageToFirestore(message: Message) {
         let currentUserID = currentUser.uid
-        let otherUserID = otherUser.uid
-        let collectionMessages = database
-            .collection("chats")
-            .document(getChatIDForUsers(userIds: [currentUserID, otherUserID]))
-            .collection("messages")
-        
-        do {
-            try collectionMessages.addDocument(from: message, completion: {(error) in
-                if error == nil {
-                    self.hideActivityIndicator()
-                    self.loadMessages()
-                }
-            })
-        } catch {
-            print("Error adding message to chat")
+        if let otherUserID = otherUser.uid {
+            let collectionMessages = database
+                .collection("chats")
+                .document(getChatIDForUsers(userIds: [currentUserID, otherUserID]))
+                .collection("messages")
+            
+            do {
+                try collectionMessages.addDocument(from: message, completion: {(error) in
+                    if error == nil {
+                        self.hideActivityIndicator()
+                        self.loadMessages()
+                    }
+                })
+            } catch {
+                print("Error adding message to chat")
+            }
         }
     }
     
