@@ -36,11 +36,12 @@ extension NewMessageViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     
                     if let document = document, document.exists {
-                        // navigate to existing chat
+                        self.navigationController?.popToRootViewController(animated: true)
                     } else {
                         self.showActivityIndicator()
                         self.otherUser = selectedUser
                         self.addChatToFirestore()
+                        self.navigationController?.popToRootViewController(animated: true)
                     }
                 }
         }

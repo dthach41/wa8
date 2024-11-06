@@ -81,6 +81,9 @@ class RegisterViewController: UIViewController {
         changeRequest?.displayName = name
         changeRequest?.commitChanges(completion: {(error) in
             if error == nil{
+                if let newUser = Auth.auth().currentUser {
+                    self.createUserDoc(user: newUser)
+                }
                 self.navigationController?.popToRootViewController(animated: true)
             }else{
                 print("Error occured: \(String(describing: error))")
@@ -99,14 +102,8 @@ class RegisterViewController: UIViewController {
                 if error == nil{
                     self.hideActivityIndicator()
                     self.setNameOfTheUserInFirebaseAuth(name: name)
-                    
-                    if let newUser = Auth.auth().currentUser {
-                        self.createUserDoc(user: newUser)
-                    }
-//                    let currUser = User(uid: (result?.user.uid)!, displayName: name, email: email)
-//                    
-//                    self.addNewUserToCollection(user: currUser)
                 } else {
+                    self.hideActivityIndicator()
                     self.showAccountAlreadyExists()
                 }
             })
@@ -131,20 +128,6 @@ class RegisterViewController: UIViewController {
             
         }
     }
-    
-//    func addNewUserToCollection(user: User) {
-//        let collectionUsers = database
-//            .collection("users")
-//        do {
-//            try collectionUsers.addDocument(from: user, completion: {(error) in
-//                if error == nil {
-//                    self.hideActivityIndicator()
-//                }
-//            })
-//        } catch {
-//            print("Error adding user to collection / doesnt exists")
-//        }
-//    }
     
     func createUserDoc(user: FirebaseAuth.User) {
         let userData = [

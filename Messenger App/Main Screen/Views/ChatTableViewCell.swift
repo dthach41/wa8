@@ -72,7 +72,7 @@ class ChatTableViewCell: UITableViewCell {
             labelLastMessageTime.heightAnchor.constraint(equalToConstant: 16),
             labelLastMessageTime.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor, constant: -70),
 
-            labelLastMessage.topAnchor.constraint(equalTo: labelReceiverName.topAnchor, constant: 8),
+            labelLastMessage.topAnchor.constraint(equalTo: labelReceiverName.topAnchor, constant: 25),
             labelLastMessage.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 8),
             labelLastMessage.heightAnchor.constraint(equalToConstant: 16),
             labelLastMessage.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor, constant: -70),

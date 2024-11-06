@@ -26,7 +26,7 @@ class ReceiverTableViewCell: UITableViewCell {
     
     func setupWrapperCellView() {
         wrapperCellView = UITableViewCell()
-        wrapperCellView.backgroundColor = UIColor(red: 8/225, green: 127/225, blue: 254/225, alpha: 1)
+        wrapperCellView.backgroundColor = .lightGray
         wrapperCellView.layer.cornerRadius = 16
         wrapperCellView.clipsToBounds = true
         wrapperCellView.translatesAutoresizingMaskIntoConstraints = false

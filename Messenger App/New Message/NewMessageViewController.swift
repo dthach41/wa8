@@ -74,7 +74,7 @@ class NewMessageViewController: UIViewController {
     // adds a new chat document to chats collection
     func addChatToFirestore() {
         let chatData = [
-            "participantNames": [currentUser.displayName, self.otherUser.displayName],
+            "participantNames": [currentUser.displayName, otherUser.displayName],
             "participants": [self.currentUser.uid, otherUser.uid],
             "lastMessage": nil,
             "lastMessageTime": nil

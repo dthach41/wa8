@@ -34,8 +34,11 @@ class ChatView: UIView {
     
     func setupTextFieldMessage() {
         textfieldMessage = UITextField()
+        textfieldMessage.placeholder = "Message"
         textfieldMessage.borderStyle = .roundedRect
         textfieldMessage.layer.borderWidth = 1
+        textfieldMessage.layer.borderColor = UIColor.lightGray.cgColor
+        textfieldMessage.clipsToBounds = true
         textfieldMessage.autocapitalizationType = .none
         textfieldMessage.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(textfieldMessage)

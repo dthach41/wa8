@@ -43,7 +43,7 @@ class ChatViewController: UIViewController {
     
     @objc func onButtonSendTapped() {
         showActivityIndicator()
-        if let messageText = chatView.textfieldMessage.text {
+        if let messageText = chatView.textfieldMessage.text, messageText != "" {
             chatView.textfieldMessage.text = ""
             let message = Message(uid: currentUser.uid, name: currentUser.displayName!, text: messageText)
             addMessageToFirestore(message: message)
@@ -90,11 +90,32 @@ class ChatViewController: UIViewController {
                     if error == nil {
                         self.hideActivityIndicator()
                         self.loadMessages()
+                        self.updateLastMessageDetails(message: message)
                     }
                 })
             } catch {
                 print("Error adding message to chat")
             }
+        }
+    }
+    
+    func updateLastMessageDetails(message: Message) {
+        let lastMessageData: [String: Any] = [
+            "lastMessage": message.text,
+            "lastMessageTime": message.sentAt
+        ]
+        
+        let currentUserID = currentUser.uid
+        if let otherUserID = otherUser.uid {
+            database.collection("chats")
+                .document(getChatIDForUsers(userIds: [currentUserID, otherUserID]))
+                .updateData(lastMessageData) { error in
+                    if let error = error {
+                        print("Error updating chat document: \(error)")
+                    } else {
+                        print("Chat document updating successfully with last message: \(message.text)")
+                    }
+                }
         }
     }
     
