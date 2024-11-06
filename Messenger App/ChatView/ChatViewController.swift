@@ -39,6 +39,8 @@ class ChatViewController: UIViewController {
         chatView.tableViewMessages.dataSource = self
         
         chatView.tableViewMessages.separatorStyle = .none
+        
+        hideKeyboardOnTapOutside()
     }
     
     @objc func onButtonSendTapped() {

@@ -51,6 +51,8 @@ class NewMessageViewController: UIViewController {
     
     override func loadView() {
         view = newMessageScreen
+        
+        hideKeyboardOnTapOutside()
     }
     
     override func viewDidLoad() {
@@ -96,6 +98,15 @@ class NewMessageViewController: UIViewController {
     
     func getChatIDForUsers(userIds: [String]) -> String {
         return userIds.sorted().joined(separator: "_")
+    }
+    
+    func hideKeyboardOnTapOutside() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc func hideKeyboardOnTap(){
+        view.endEditing(true)
     }
 }
 

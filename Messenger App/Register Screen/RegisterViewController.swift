@@ -25,6 +25,8 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
 
         registerScreen.buttonRegister.addTarget(self, action: #selector(onButtonRegisterClicked), for: .touchUpInside)
+        
+        hideKeyboardOnTapOutside()
     }
     
     func showEmptyFields() {
@@ -142,6 +144,15 @@ class RegisterViewController: UIViewController {
                 print("User document created successfully with ID: \(user.uid)")
             }
         }
+    }
+    
+    func hideKeyboardOnTapOutside() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc func hideKeyboardOnTap(){
+        view.endEditing(true)
     }
 }
 

@@ -27,11 +27,11 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource{
         if let senderCell = cell as? SenderTableViewCell {
             senderCell.labelName.text = message.name
             senderCell.labelText.text = message.text
-            senderCell.labelDateTime.text = DateFormatter.localizedString(from: message.sentAt, dateStyle: .none, timeStyle: .short)
+            senderCell.labelDateTime.text = DateFormatter.localizedString(from: message.sentAt, dateStyle: .short, timeStyle: .short)
         } else if let receiverCell = cell as? ReceiverTableViewCell {
             receiverCell.labelName.text = message.name
             receiverCell.labelText.text = message.text
-            receiverCell.labelDateTime.text = DateFormatter.localizedString(from: message.sentAt, dateStyle: .none, timeStyle: .short)
+            receiverCell.labelDateTime.text = DateFormatter.localizedString(from: message.sentAt, dateStyle: .short, timeStyle: .short)
         }
         
         return cell

@@ -23,6 +23,8 @@ class LoginViewController: UIViewController {
 
         loginScreen.buttonLogin.addTarget(self, action: #selector(onButtonLoginClicked), for: .touchUpInside)
         loginScreen.buttonRegister.addTarget(self, action: #selector(onButtonRegisterClicked), for: .touchUpInside)
+        
+        hideKeyboardOnTapOutside()
     }
     
     func showUserNotFound() {
@@ -55,5 +57,14 @@ class LoginViewController: UIViewController {
     @objc func onButtonRegisterClicked() {
         let registerViewController = RegisterViewController()
         navigationController?.pushViewController(registerViewController, animated: true)
+    }
+    
+    func hideKeyboardOnTapOutside() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc func hideKeyboardOnTap(){
+        view.endEditing(true)
     }
 }

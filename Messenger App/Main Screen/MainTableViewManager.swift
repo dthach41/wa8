@@ -35,7 +35,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
         if let lastMessageTime = chat.lastMessageTime {
-            cell.labelLastMessageTime.text = DateFormatter.localizedString(from: lastMessageTime, dateStyle: .none, timeStyle: .short)
+            cell.labelLastMessageTime.text = DateFormatter.localizedString(from: lastMessageTime, dateStyle: .short, timeStyle: .short)
         } else {
             cell.labelLastMessageTime.text = ""
         }
